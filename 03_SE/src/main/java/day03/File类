@@ -1,0 +1,18 @@
+
+File 类
+	用于描述操作系统中的一个文件或目录
+	通过File我们可以得知文件的名字，大小，修改时间等信息，但是不能读取文件的内容。
+
+	RandomAccessFile
+		用于读写文件内容的类
+
+	java中的文件模型
+		数据在硬盘中保存的形式是byte by byte
+
+	读写文件实际上就是读写字节
+
+	创建RandomAccessFile
+		RandomAccessFile(File file,String mode)
+		mode 支持两个
+		"rw"： 读写
+		"r" : 只读

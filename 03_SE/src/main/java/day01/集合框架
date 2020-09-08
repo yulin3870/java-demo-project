@@ -1,0 +1,91 @@
+
+Java 集合框架
+    集合框架被设计成要满足以下几个目标。
+        1)该框架必须是高性能的。基本集合（动态数组，链表，树，哈希表）的实现也必须是高效的。
+        2)该框架允许不同类型的集合，以类似的方式工作，具有高度的互操作性。
+        3)对一个集合的扩展和适应必须是简单的。
+    为此，整个集合框架就围绕一组标准接口而设计。你可以直接使用这些接口的标准实现，诸如： LinkedList, HashSet, 和 TreeSet 等,
+        除此之外你也可以通过这些接口实现自己的集合。
+
+Java 集合框架主要包括两种类型的容器，一种是集合（Collection），存储一个元素集合，另一种是图（Map），存储键/值对映射。
+    Collection 接口又有 3 种子类型，List、Set 和 Queue，再下面是一些抽象类，
+    最后是具体实现类，常用的有 ArrayList、LinkedList、HashSet、LinkedHashSet、HashMap、LinkedHashMap 等等。
+
+集合框架是一个用来代表和操纵集合的统一架构。所有的集合框架都包含如下内容：
+    接口：是代表集合的抽象数据类型。例如 Collection、List、Set、Map 等。之所以定义多个接口，是为了以不同的方式操作集合对象
+    实现（类）：是集合接口的具体实现。从本质上讲，它们是可重复使用的数据结构，例如：ArrayList、LinkedList、HashSet、HashMap。
+    算法：是实现集合接口的对象里的方法执行的一些有用的计算，例如：搜索和排序。这些算法被称为多态，那是因为相同的方法可以在相似的接口上有着不同的实现。
+    除了集合，该框架也定义了几个 Map 接口和类。Map 里存储的是键/值对。尽管 Map 不是集合，但是它们完全整合在集合中。
+
+<Collection定义的方法>
+     int size() : 返回集合中的元素数量
+     boolean isEmpty(): 判断集合是否为空集合,是否有元素
+     Point p ;
+     p == null ; "null"判断集合是否存在,是否已实例化
+     boolean contains(Object o) : 判断集合是否包含指定的元素
+     void clear() : 清空集合
+     boolean add(E e) ：向集合中添加元素
+     boolean remove(E e) :从集合中删除指定元素
+     boolean addAll(Collection c) :将给定集合中的所有元素添加到当前集合（并集）
+     boolean removeAll(Collection c) :删除当前集合中与给定集合相同的元素
+     Iterator iterator() :返回遍历数组的迭代器
+
+Set和List的区别
+    1. Set 接口实例存储的是无序的，不重复的数据。List 接口实例存储的是有序的，可以重复的元素。
+    2. Set检索效率低下，删除和插入效率高，插入和删除不会引起元素位置改变 <实现类有HashSet,TreeSet>。
+    3. List和数组类似，可以动态增长，根据实际存储的数据的长度自动增长List的长度。
+        查找元素效率高，插入删除效率低，因为会引起其他元素位置改变 <实现类有ArrayList,LinkedList,Vector> 。
+
+    Set :不可重复集
+                <	无序集 >
+
+    List :可重复集（同一个元素可以放入若干次） 这里所谓同一个元素指的是 equals 为 true
+				< 有序集 >
+
+List集合的实现类
+    ArrayList  :内部使用数组实现 的集合
+    LinkedList :使用链表方式实现的集合
+
+    List接口中定义的方法
+         get(int index) :获取指定位置的元素
+         set(int index , Object obj) :将指定位置上的元素替换为给定元素，返回被替换的元素
+         add(int index , Object o) :在指定位置插入给定的元素，原来的元素顺序向后移动
+         remove(int index) :删除指定位置的元素
+         indexOf(Object o) :查找给定元素在集合中第一次出现的位置
+         lastIndexOf(Object o) :查找给定元素在集合中最后一次出现的位置
+
+    LinkedList与ArrayList
+      ArrayList使用数组方式实现，根据数组的实现原理，这种集合更适合查询数据，
+      但是对频繁的增删元素而言，效率要低
+
+      LinkedList使用链表方式实现，根据链表的实现原理，这种集合更适合增删元素，
+      但是对于频繁的查询元素相对效率要低
+
+集合实现类（集合类）
+    Java提供了一套实现了Collection接口的标准集合类。其中一些是具体类，这些类可以直接拿来使用，而另外一些是抽象类，提供了接口的部分实现。
+
+集合算法
+    集合框架定义了几种算法，可用于集合和映射。这些算法被定义为集合类的静态方法。
+    在尝试比较不兼容的类型时，一些方法能够抛出 ClassCastException异常。当试图修改一个不可修改的集合时，抛出UnsupportedOperationException异常。
+    集合定义三个静态的变量：EMPTY_SET，EMPTY_LIST，EMPTY_MAP的。这些变量都不可改变。
+
+如何使用迭代器
+    通常情况下，你会希望遍历一个集合中的元素。例如，显示集合中的每个元素。
+    一般遍历数组都是采用for循环或者增强for，这两个方法也可以用在集合框架，
+    但是还有一种方法是采用迭代器遍历集合框架，它是一个对象，实现了Iterator 接口或 ListIterator接口。
+    迭代器，使你能够通过循环来得到或删除集合的元素。ListIterator 继承了 Iterator，以允许双向遍历列表和修改元素。
+    该接口有三个常用方法
+      boolean hasNext():是否还有元素可以获取    ->问
+      Object next() :获取元素					->取
+      void remove() :删除当前迭代出的元素		->删
+
+如何使用比较器
+    TreeSet和TreeMap的按照排序顺序来存储元素. 然而，这是通过比较器来精确定义按照什么样的排序顺序。
+    这个接口可以让我们以不同的方式来排序一个集合。
+
+总结
+    Java集合框架为程序员提供了预先包装的数据结构和算法来操纵他们。
+    集合是一个对象，可容纳其他对象的引用。集合接口声明对每一种类型的集合可以执行的操作。
+    集合框架的类和接口均在java.util包中。
+    任何对象加入集合类后，自动转变为Object类型，所以在取出的时候，需要进行强制类型转换。
+

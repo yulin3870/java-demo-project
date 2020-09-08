@@ -1,0 +1,104 @@
+1. 什么是JDBC?
+2. JDBC的核心API
+   Connection 封装连接
+     1) Statement createStatement()
+        创建一个Statement对象
+     2) PreparedStatement
+        prepareStatement(String sql)
+        创建一个PreparedStatement对象
+        把一个SQL送入数据库服务器预编译
+
+     3) close(); // 关闭连接释放资源
+     4) setAutoCommit(boolean)
+        设置自动提交
+     5) commit(); rollback();
+
+   Statement 封装SQL语句及其执行
+     1) executeQuery(String sql)
+     2) executeUpdate(String sql)
+   * PreparedStatement
+     1) setXXX(int index,XXX value)
+     // 设置参数,把参数传给数据库端的
+     // 已经预编译的SQL
+     2) setObject(int index,Object value)
+     3) ResultSet executeQuery()
+     4) int executeUpdate()
+     5) void close();
+
+   ResultSet 封装DQL执行的结果
+     1) boolean next()
+     // 游标下移一行,返回是否到末尾
+     2) XXX getXXX(String columnName)
+     // 获取游标当前指向行的,指定列的值
+        getXXX表示将数据转换为
+                        XXX类型再返回
+    3. 几个解决方案
+        1) 通用DQL
+            // 1 创建连接
+            // 2 获取PStmt,预编译SQL
+            // 3 设置参数
+            // 4 执行查询
+            // 5 遍历结果集
+            // 6 关闭连接
+        2) 通用DML
+            // 1 创建连接
+            // 2 获取PStmt,预编译SQL
+            // 3 设置参数
+            // 4 执行DML,可以查看影响的行数
+            // 5 关闭连接
+        3) 事务控制
+            // 1 创建连接
+            // 2 设置自动提交为false
+            try {
+            // 3.1 DML语句1
+            // 3.2 DML语句2
+            ... ...
+            // 4 提交事务
+            }catch(Exception e) {
+              ...
+              5 回滚事务
+            } finally {
+              6 关闭连接
+            }
+
+    4) 使用连接池
+        a. 为什么用连接池?
+           节省连接频繁创建的开销
+           维护一些已经打开连接
+           如果有需要,就提供该连接
+           用完后"还"给连接池
+           连接池会根据访问量来调整连接池
+           中的连接数(可配置)
+        b. 用过那个连接池,如何配置?
+           Apache Commons DBCP
+           BasicDataSource ds =
+                new BasicDataSource()
+           ds.set...设置连接参数
+           ds.set...设置连接池参数
+           Connection con =
+                ds.getConnection()
+           con.close(); // "还"不是"关"
+          //  * Wrapper模式
+    5) 使用批处理
+        // 1 创建连接
+        // 1.1 设置事务自动提交为false
+        // 2 创建PreparedStatement
+        for(..;..;..) {
+         //3 设置参数 stmt.setXXX(...);
+         //4 添加批处理 stmt.addBatch();
+         //5 if(...) { // 控制"一批"的数量
+            stmt.executeBatch();
+         }
+        }
+        //6 执行批处理 stmt.executeBatch();
+        // 6.1 提交事务
+        //7 连接关闭
+
+    4. 会写DAO
+        1) 编写连接工具(重用)
+           a. 一定用连接池
+           b. 连接参数写在配置文件中
+        2) 编写实体类(和数据表对应)
+        3) 编写BaseDAO(重用)
+        4) 编写实体DAO extends BaseDAO
+

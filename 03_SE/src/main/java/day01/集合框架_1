@@ -1,0 +1,88 @@
+
+数据结构
+	队列Queue
+	队列用于存储一组数据，但是对于存取方式有一定的要求。必须遵循先进先出原则（FIFO）
+	First Input First Output
+
+Queue常用的子类实现LInkedlist
+    队列的方法：
+        boolean offer(E e) :向队列末尾追加一个元素追加成功返回true
+        E poll() : 从队首取出元素（取出后就从队列中删除了该元素）
+        E peek() : 获取队首元素，但不删除。
+
+栈结构（Deque)
+	Deque是Queue的子接口
+	使用双端队列时，我们若只允许元素都一个方向进出，则实现了栈结构，
+	栈结构存取元素要本着先进现出原则（FILO）
+
+    First Input Last Output
+    LinkedList实现了Deque
+
+Comparble接口
+	在对数组或集合元素进行排序时，首先要确定比较大小
+	有了结论才可以进行排序，而如何比较大小，则需要实现该接口，并实现其中的抽象方法来定义比较规则
+
+	Arrays在对数组进行排序时，比较每个元素大小时就会调用这些元素的compareTo方法进行比较，
+	而这个方法就是Comparable接口定义的
+
+排序集合：
+Collections集合的工具类
+	其中有一个方法是sort，用于排序集合
+
+java中的很多类都实现了Comparable接口
+	例如 String , Integer等
+
+	像字符串这样JDK提供的类，他们自身已经定义了比较规则，但是当比较规则不能满足我们对排序的要求时，
+	我们需要另外指定比较规则
+	例如：按照字符串中字符的多少进行比较
+
+	Collections提供了一个重载的排序方法
+	sort(Collections c, Comparator com)
+
+Comparator接口
+	比较器，用来定义比较规则
+	当调用Collections的
+	sort(Collections c , Comparator com)方法时，
+	该方法在排序集合时，不使用集合中元素自身的比较规则，
+	而是使用我们提供的比较器中的比较规则进行比较后再进行排序的
+
+Set集合
+	不重复集，在set集合中不存在两个元素equals 为ture的
+	Set集合的常用实现类
+	HashSet : 使用散列算法实现的Set
+	TreeSet : 使用二叉树实现的set
+
+数据结构 Map
+    Map接口定义的集合包含两部分，key-value 以键值对的形式保存元素，可以把map看作是一个多行两列的表格
+
+    根据内部实现不同，我们常使用HashMap
+    也有通过二叉树实现的TreeMap
+    在Map中，key是不重复的
+
+    存取数据的方法
+            V put(K k , V v): 根据给定的key存放给定的value若使用已存在的key存放元素,那么就是替换value操作，返回值则是被替换的元素，否则返回null
+            V get(Object k): 根据给定的key获取对应的value,若key在map中不存在，则返回null
+
+            boolean containsKey(Object k):  查看当前map中是否有给定的key
+
+            boolean containsValue(Object v):  查看当前map中是否有给定的value
+
+
+HashMap的性能
+    Capacity 容量： HashMap中散列数组的大小。
+    initial capacity 初始容量：
+    创建HashMap时，默认创建的散列数组的大小，这个默认值为16
+
+    size 大小： HashMap中存放的数据量
+
+loadfactor 加载因子：加载因子的默认值为 0.75 ，该值是通过size/capacity得到的比值
+		当存储的数据量超过了比值 0.75 时，会对散列数组进行扩容，
+		并对hashmap中原来的所有元素重新计算并存入新数组      < 0.75 浪费资源   ，   > 0.75影响效率
+
+遍历map
+    遍历map有三种方式
+        获取所有的key
+        获取所有的value ： 不太常用
+        获取所有的key-value
+
+

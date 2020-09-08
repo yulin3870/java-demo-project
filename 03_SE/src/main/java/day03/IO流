@@ -1,0 +1,100 @@
+
+<一>Java 中的IO
+	输入流和输出流
+
+	InputStream（字节输入流）　Reader（字符输入流）
+	输入流 ： 用于从外界读取数据到程序中 （读操作）
+
+	OutputStream	（字节输出流）  Writer(字符输入流）
+	输出流 ： 将程序中的数据发送到外界	　（写操作）
+
+1）java中的流分为
+    低级流 ： 节点流
+                        数据来源与去向明确
+
+    高级流 ： 处理流，过滤流
+                        高级流不能独立存在，通常基于一个流进行工作，使用高级流可以简化我们的读写操作
+
+2）根据流读写数据的单位通常划分为：
+	字节流和字符流
+        字节流 ： 以字节为单位读取数据
+        字符流 ： 以字符为单位读写数据
+
+<二>java.io 中字节输入流与字节输出流的父类
+
+    java.io.InputStream
+        这是一个抽象类，不能实例化，是所有字节输入流的父类
+        其中定义了读取数据的相关方法
+
+    java.io.OutputStream
+        这也是一个抽象类，不能实例化，是所有字节输出流的父类
+        其中定义了写出数据的相关方法
+
+    1）FIS与FOS
+        文件字节输入输出流　<节点流>
+
+            FileInputStream     用于读取文件的字节流
+
+            FileOutputStream    用于向文件写数据的字节流
+
+    2）BIS 与  BOS	<过滤流>
+        具有缓冲功能的输入输出流
+
+        BufferedInputStream     缓冲字节输入流
+
+        BufferedOutputStream    缓冲字节输出流
+
+    3）DIS 与　DOS		<过滤流>
+        是对“流”功能的扩展，用于读写基本类型数据的
+            DateInputStream
+
+            DateOutputStream
+
+<三>字符流
+    读写以字符为单位
+        字符流的父类
+        java.io.Reader
+        java.io.Writer
+
+    子类实现
+        InputStreamReader
+
+        OutputStreamWritdre
+
+    读写数据都是基于字节的，所以字符流都是高级流
+
+    1）缓冲字符输入输出流
+        特点：以行为单位读写字符
+
+        BufferedReader  缓冲字符输入流
+
+        BufferedWriter  缓冲字符输出流
+
+    2）用于读取文本文件的字符流
+        FileReader  文件字符输入流
+
+        FileWriter  文件字符输出流
+
+PrintWriter
+	带自动刷新的缓冲字符输出流
+
+	常用构造方法:
+	PrintWriter(File file)
+		创建一个向给定文件写数据的PrintWriter
+		该种创建方式是创建了一个不自动行刷新的流
+
+	PrintWriter(OutputStream out)
+		创建一个不具备自动行刷新的基于给定字节输出流进行写操作的PrintWriter
+
+	PrintWriter(
+	     OutputStream out,
+	     boolean autoFlush
+	     )
+		创建一个具备自动行刷新的基于给定字节输出流进行写操作的PrintWriter
+		当具有自动行刷新后,每当我们通过该流写一行字符串后都会自动flush()清空缓冲区并作一次写操作
+
+	PrintWriter(Writer w)
+	PrintWriter(Writer w,boolean autoFlush)
+
+	PrintWriter(String FilePath)
+		根据给定的文件路径,创建基于该文件进行写操作的PrintWriter
